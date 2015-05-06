@@ -8,7 +8,14 @@ Let's try again... why do you want this? If you are making an implementation of 
 
 ## Use
 
-    // First load the module (use Browserify or something if you're targeting the web)
+[Install through npm:](https://www.npmjs.com/package/realistic-structured-clone)
+
+    $ npm install realistic-structured-clone
+
+Then use it:
+
+    // First load the module
+    // (Use Browserify or something if you're targeting the web)
     var structuredClone = require('realistic-structured-clone');
 
     // Clone a variable (will throw a DataCloneError for invalid input)
