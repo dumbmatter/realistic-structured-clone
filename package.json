@@ -1,0 +1,33 @@
+{
+  "name": "realistic-structured-clone",
+  "version": "0.0.1",
+  "description": "A pure JS implementation of the structured clone algorithm (or at least something pretty close to that)",
+  "homepage": "https://github.com/dumbmatter/realistic-structured-clone",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dumbmatter/realistic-structured-clone.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dumbmatter/realistic-structured-clone/issues"
+  },
+  "keywords": [
+    "structured",
+    "clone",
+    "structured-clone"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js test",
+    "mocha": "mocha --recursive",
+    "test": "npm run lint && npm run mocha"
+  },
+  "author": "Jeremy Scheff <jdscheff@gmail.com> (http://dumbmatter.com/)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "lodash.isplainobject": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^0.20.0",
+    "mocha": "^2.2.4"
+  }
+}
