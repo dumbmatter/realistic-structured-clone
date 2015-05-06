@@ -4,7 +4,7 @@ This is a pure JS implementation of the [structured clone algorithm](http://www.
 
 Why do you want this? Well, you probably don't. If your goal is to just clone a JS object, you're better off with [lodash's _.cloneDeep](https://lodash.com/docs#cloneDeep) or [the popular `clone` module on npm](https://www.npmjs.com/package/clone).
 
-Let's try again... why do you want this? If you are making an implementation of an API that explicitly uses the structured clone algorithm (such as [IndexedDB](https://github.com/dumbmatter/fakeIndexedDB)), then you want something that handles quirks and edge cases exactly like the structured clone algorithm. That's what `realistic-structured-clone` is for.
+Let's try again... why do you want this? If you are making an implementation of an API that explicitly uses the structured clone algorithm (such as [IndexedDB](https://github.com/dumbmatter/fakeIndexedDB)), then you want something that handles quirks and edge cases exactly like the structured clone algorithm. That's what `realistic-structured-clone` is for. It's not totally there (see below) but it's a decent start.
 
 ## Use
 
