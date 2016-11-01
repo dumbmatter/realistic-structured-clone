@@ -14,12 +14,10 @@ util.inherits(DataCloneError, Error);
 
 // http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm
 function structuredClone(input, memory) {
-    memory = memory !== undefined ? memory : [];
+    memory = memory !== undefined ? memory : new Map();
 
-    for (var i = 0; i < memory.length; i++) {
-        if (memory[i].source === input) {
-            return memory[i].destination;
-        }
+    if (memory.has(input)) {
+        return memory.get(input);
     }
 
     var type = typeof input;
@@ -53,10 +51,7 @@ function structuredClone(input, memory) {
         throw new DataCloneError();
     }
 
-    memory.push({
-        source: input,
-        destination: output
-    });
+    memory.set(input, output);
 
     if (deepClone === 'map') {
         throw new DataCloneError('Map support not implemented yet');
