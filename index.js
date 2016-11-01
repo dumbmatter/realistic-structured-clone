@@ -33,8 +33,16 @@ function structuredClone(input, memory) {
         output = new input.constructor(input.valueOf());
     } else if (input instanceof RegExp) {
         output = new RegExp(input.source, input.flags);
-
-        // Supposed to also handle Blob, FileList, ImageData, ImageBitmap, ArrayBuffer, and "object with a [[DataView]] internal slot", but fuck it
+    } else if (input instanceof ArrayBuffer) {
+        output = input.slice();
+    } else if (ArrayBuffer.isView(input)) {
+        var outputBuffer = input.buffer.slice();
+        if (input instanceof DataView) {
+            output = new DataView(outputBuffer, input.byteOffset, input.byteLength);
+        } else {
+            output = new input.constructor(outputBuffer, input.byteOffset, input.length);
+        }
+        // Supposed to also handle Blob, FileList, ImageData, ImageBitmap, but fuck it
     } else if (Array.isArray(input)) {
         output = new Array(input.length);
         deepClone = 'own';

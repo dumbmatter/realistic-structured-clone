@@ -42,6 +42,13 @@ describe('Valid Input', function () {
         confirmWorks(new RegExp('gh.*i', 'yu'));
     });
 
+    it('ArrayBuffer', function () {
+        confirmWorks(new ArrayBuffer(5));
+        confirmWorks(new Int16Array(7));
+        confirmWorks(new Int16Array(new ArrayBuffer(16), 2, 7));
+        confirmWorks(new DataView(new ArrayBuffer(16), 3, 13));
+    });
+
     it('Array', function () {
         confirmWorks([1, 2, 5, 3]);
         confirmWorks(['a', 'g', 2, true, null]);
