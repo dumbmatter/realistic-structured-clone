@@ -10,9 +10,12 @@ describe('Valid Input', function () {
         } else if (x instanceof RegExp) {
             var y = structuredClone(x);
             assert.equal(x.source, y.source);
+            assert.equal(x.flags, y.flags);
             assert.equal(x.global, y.global);
             assert.equal(x.ignoreCase, y.ignoreCase);
             assert.equal(x.multiline, y.multiline);
+            assert.equal(x.unicode, y.unicode);
+            assert.equal(x.sticky, y.sticky);
         } else {
             assert.deepEqual(structuredClone(x), x);
         }
@@ -35,6 +38,8 @@ describe('Valid Input', function () {
     it('RegExp', function () {
         confirmWorks(new RegExp('ab+c', 'i'));
         confirmWorks(/ab+c/i);
+        confirmWorks(new RegExp('de+f', 'gm'));
+        confirmWorks(new RegExp('gh.*i', 'yu'));
     });
 
     it('Array', function () {

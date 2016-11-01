@@ -34,7 +34,7 @@ function structuredClone(input, memory) {
     if (input instanceof Boolean || input instanceof Number || input instanceof String || input instanceof Date) {
         output = new input.constructor(input.valueOf());
     } else if (input instanceof RegExp) {
-        output = new RegExp(input.source, "g".substr(0, Number(input.global)) + "i".substr(0, Number(input.ignoreCase)) + "m".substr(0, Number(input.multiline)));
+        output = new RegExp(input.source, input.flags);
 
         // Supposed to also handle Blob, FileList, ImageData, ImageBitmap, ArrayBuffer, and "object with a [[DataView]] internal slot", but fuck it
     } else if (Array.isArray(input)) {
