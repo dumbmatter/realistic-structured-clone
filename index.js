@@ -62,9 +62,13 @@ function structuredClone(input, memory) {
     memory.set(input, output);
 
     if (deepClone === 'map') {
-        throw new DataCloneError('Map support not implemented yet');
+        input.forEach(function (k, v) {
+            output.set(structuredClone(k, memory), structuredClone(v, memory));
+        });
     } else if (deepClone === 'set') {
-        throw new DataCloneError('Set support not implemented yet');
+        input.forEach(function (v) {
+            output.add(structuredClone(v, memory));
+        });
     } else if (deepClone === 'own') {
         for (var name in input) {
             if (input.hasOwnProperty(name)) {

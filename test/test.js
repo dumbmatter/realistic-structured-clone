@@ -64,6 +64,16 @@ describe('Valid Input', function () {
         });
     });
 
+    it('Map', function () {
+        confirmWorks(new Map([['a', 1], [{}, 2], [{}, 5], [0, 3]]));
+        confirmWorks(new Map());
+    });
+
+    it('Set', function () {
+        confirmWorks(new Set(['a', {}, {}, 0]));
+        confirmWorks(new Set());
+    });
+
     it('Circular Reference', function () {
         var circular = [];
         circular.push(circular);
