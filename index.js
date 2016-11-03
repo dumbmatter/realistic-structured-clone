@@ -36,7 +36,7 @@ function structuredClone(input, memory) {
     } else if (input instanceof ArrayBuffer) {
         output = input.slice();
     } else if (ArrayBuffer.isView(input)) {
-        var outputBuffer = input.buffer.slice();
+        var outputBuffer = structuredClone(input.buffer, memory);
         if (input instanceof DataView) {
             output = new DataView(outputBuffer, input.byteOffset, input.byteLength);
         } else {

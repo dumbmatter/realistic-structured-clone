@@ -66,6 +66,16 @@ describe('Valid Input', function () {
         var ab2 = structuredClone(ab);
         assertSameEntries(new Int8Array(ab), new Int8Array(ab2));
 
+        var shared = new ArrayBuffer(7);
+        var obj = {wrapper1: new Uint8Array(shared),
+                   wrapper2: new Uint16Array(shared, 2, 2)
+        };
+        obj.wrapper1[0] = 1;
+        obj.wrapper2[1] = 0xffff;
+        var obj2 = structuredClone(obj);
+        assert(obj2.wrapper1.buffer === obj2.wrapper2.buffer);
+        assertSameEntries(obj.wrapper1, obj2.wrapper1);
+
         confirmContainerWorks(new Int16Array(7));
         confirmContainerWorks(new Int16Array(new ArrayBuffer(16), 2, 7));
         confirmWorks(new DataView(new ArrayBuffer(16), 3, 13));
