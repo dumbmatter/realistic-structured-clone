@@ -3,6 +3,25 @@
 var assert = require('assert');
 var structuredClone = require('..');
 
+function assertSameEntries(xcontainer, ycontainer) {
+  var x = xcontainer.entries();
+  var y = ycontainer.entries();
+  var xentry = x.next();
+  var yentry = y.next();
+  while (xentry.done === false) {
+    assert.deepEqual(xentry.value[0], yentry.value[0]);
+    assert.deepEqual(xentry.value[1], yentry.value[1]);
+    xentry = x.next();
+    yentry = y.next();
+  }
+  assert.equal(yentry.done, true);
+}
+
+function confirmContainerWorks(x) {
+  var y = structuredClone(x);
+  assertSameEntries(x,y);
+}
+
 describe('Valid Input', function () {
     var confirmWorks = function (x) {
         if (x !== x) { // Special case for NaN
@@ -43,15 +62,18 @@ describe('Valid Input', function () {
     });
 
     it('ArrayBuffer', function () {
-        confirmWorks(new ArrayBuffer(5));
-        confirmWorks(new Int16Array(7));
-        confirmWorks(new Int16Array(new ArrayBuffer(16), 2, 7));
+        var ab = new ArrayBuffer(5);
+        var ab2 = structuredClone(ab);
+        assertSameEntries(new Int8Array(ab), new Int8Array(ab2));
+
+        confirmContainerWorks(new Int16Array(7));
+        confirmContainerWorks(new Int16Array(new ArrayBuffer(16), 2, 7));
         confirmWorks(new DataView(new ArrayBuffer(16), 3, 13));
     });
 
     it('Array', function () {
-        confirmWorks([1, 2, 5, 3]);
-        confirmWorks(['a', 'g', 2, true, null]);
+        confirmContainerWorks([1, 2, 5, 3]);
+        confirmContainerWorks(['a', 'g', 2, true, null]);
     });
 
     it('Plain Object', function () {
@@ -65,13 +87,13 @@ describe('Valid Input', function () {
     });
 
     it('Map', function () {
-        confirmWorks(new Map([['a', 1], [{}, 2], [{}, 5], [0, 3]]));
-        confirmWorks(new Map());
+        confirmContainerWorks(new Map([['a', 1], [{}, 2], [{}, 5], [0, 3]]));
+        confirmContainerWorks(new Map());
     });
 
     it('Set', function () {
-        confirmWorks(new Set(['a', {}, {}, 0]));
-        confirmWorks(new Set());
+        confirmContainerWorks(new Set(['a', {}, {}, 0]));
+        confirmContainerWorks(new Set());
     });
 
     it('Circular Reference', function () {

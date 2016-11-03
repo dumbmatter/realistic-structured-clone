@@ -62,7 +62,7 @@ function structuredClone(input, memory) {
     memory.set(input, output);
 
     if (deepClone === 'map') {
-        input.forEach(function (k, v) {
+        input.forEach(function (v, k) {
             output.set(structuredClone(k, memory), structuredClone(v, memory));
         });
     } else if (deepClone === 'set') {
