@@ -4,22 +4,22 @@ var assert = require('assert');
 var structuredClone = require('..');
 
 function assertSameEntries(xcontainer, ycontainer) {
-  var x = xcontainer.entries();
-  var y = ycontainer.entries();
-  var xentry = x.next();
-  var yentry = y.next();
-  while (xentry.done === false) {
-    assert.deepEqual(xentry.value[0], yentry.value[0]);
-    assert.deepEqual(xentry.value[1], yentry.value[1]);
-    xentry = x.next();
-    yentry = y.next();
-  }
-  assert.equal(yentry.done, true);
+    var x = xcontainer.entries();
+    var y = ycontainer.entries();
+    var xentry = x.next();
+    var yentry = y.next();
+    while (xentry.done === false) {
+        assert.deepEqual(xentry.value[0], yentry.value[0]);
+        assert.deepEqual(xentry.value[1], yentry.value[1]);
+        xentry = x.next();
+        yentry = y.next();
+    }
+    assert.equal(yentry.done, true);
 }
 
 function confirmContainerWorks(x) {
-  var y = structuredClone(x);
-  assertSameEntries(x,y);
+    var y = structuredClone(x);
+    assertSameEntries(x, y);
 }
 
 describe('Valid Input', function () {
