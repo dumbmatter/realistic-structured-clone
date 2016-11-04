@@ -27,7 +27,7 @@
     "lodash.isplainobject": "^3.0.2"
   },
   "devDependencies": {
-    "eslint": "^0.20.0",
+    "eslint": "^3.9.1",
     "mocha": "^2.2.4"
   }
 }

@@ -14,12 +14,10 @@ util.inherits(DataCloneError, Error);
 
 // http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm
 function structuredClone(input, memory) {
-    memory = memory !== undefined ? memory : [];
+    memory = memory !== undefined ? memory : new Map();
 
-    for (var i = 0; i < memory.length; i++) {
-        if (memory[i].source === input) {
-            return memory[i].destination;
-        }
+    if (memory.has(input)) {
+        return memory.get(input);
     }
 
     var type = typeof input;
@@ -34,9 +32,17 @@ function structuredClone(input, memory) {
     if (input instanceof Boolean || input instanceof Number || input instanceof String || input instanceof Date) {
         output = new input.constructor(input.valueOf());
     } else if (input instanceof RegExp) {
-        output = new RegExp(input.source, "g".substr(0, Number(input.global)) + "i".substr(0, Number(input.ignoreCase)) + "m".substr(0, Number(input.multiline)));
-
-        // Supposed to also handle Blob, FileList, ImageData, ImageBitmap, ArrayBuffer, and "object with a [[DataView]] internal slot", but fuck it
+        output = new RegExp(input.source, input.flags);
+    } else if (input instanceof ArrayBuffer) {
+        output = input.slice();
+    } else if (ArrayBuffer.isView(input)) {
+        var outputBuffer = structuredClone(input.buffer, memory);
+        if (input instanceof DataView) {
+            output = new DataView(outputBuffer, input.byteOffset, input.byteLength);
+        } else {
+            output = new input.constructor(outputBuffer, input.byteOffset, input.length);
+        }
+        // Supposed to also handle Blob, FileList, ImageData, ImageBitmap, but fuck it
     } else if (Array.isArray(input)) {
         output = new Array(input.length);
         deepClone = 'own';
@@ -53,15 +59,16 @@ function structuredClone(input, memory) {
         throw new DataCloneError();
     }
 
-    memory.push({
-        source: input,
-        destination: output
-    });
+    memory.set(input, output);
 
     if (deepClone === 'map') {
-        throw new DataCloneError('Map support not implemented yet');
+        input.forEach(function (v, k) {
+            output.set(structuredClone(k, memory), structuredClone(v, memory));
+        });
     } else if (deepClone === 'set') {
-        throw new DataCloneError('Set support not implemented yet');
+        input.forEach(function (v) {
+            output.add(structuredClone(v, memory));
+        });
     } else if (deepClone === 'own') {
         for (var name in input) {
             if (input.hasOwnProperty(name)) {

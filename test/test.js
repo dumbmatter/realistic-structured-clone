@@ -3,6 +3,25 @@
 var assert = require('assert');
 var structuredClone = require('..');
 
+function assertSameEntries(xcontainer, ycontainer) {
+    var x = xcontainer.entries();
+    var y = ycontainer.entries();
+    var xentry = x.next();
+    var yentry = y.next();
+    while (xentry.done === false) {
+        assert.deepEqual(xentry.value[0], yentry.value[0]);
+        assert.deepEqual(xentry.value[1], yentry.value[1]);
+        xentry = x.next();
+        yentry = y.next();
+    }
+    assert.equal(yentry.done, true);
+}
+
+function confirmContainerWorks(x) {
+    var y = structuredClone(x);
+    assertSameEntries(x, y);
+}
+
 describe('Valid Input', function () {
     var confirmWorks = function (x) {
         if (x !== x) { // Special case for NaN
@@ -10,9 +29,12 @@ describe('Valid Input', function () {
         } else if (x instanceof RegExp) {
             var y = structuredClone(x);
             assert.equal(x.source, y.source);
+            assert.equal(x.flags, y.flags);
             assert.equal(x.global, y.global);
             assert.equal(x.ignoreCase, y.ignoreCase);
             assert.equal(x.multiline, y.multiline);
+            assert.equal(x.unicode, y.unicode);
+            assert.equal(x.sticky, y.sticky);
         } else {
             assert.deepEqual(structuredClone(x), x);
         }
@@ -35,11 +57,34 @@ describe('Valid Input', function () {
     it('RegExp', function () {
         confirmWorks(new RegExp('ab+c', 'i'));
         confirmWorks(/ab+c/i);
+        confirmWorks(new RegExp('de+f', 'gm'));
+        confirmWorks(new RegExp('gh.*i', 'yu'));
+    });
+
+    it('ArrayBuffer', function () {
+        var ab = new ArrayBuffer(5);
+        var ab2 = structuredClone(ab);
+        assertSameEntries(new Int8Array(ab), new Int8Array(ab2));
+
+        var shared = new ArrayBuffer(7);
+        var obj = {
+            wrapper1: new Uint8Array(shared),
+            wrapper2: new Uint16Array(shared, 2, 2)
+        };
+        obj.wrapper1[0] = 1;
+        obj.wrapper2[1] = 0xffff;
+        var obj2 = structuredClone(obj);
+        assert(obj2.wrapper1.buffer === obj2.wrapper2.buffer);
+        assertSameEntries(obj.wrapper1, obj2.wrapper1);
+
+        confirmContainerWorks(new Int16Array(7));
+        confirmContainerWorks(new Int16Array(new ArrayBuffer(16), 2, 7));
+        confirmWorks(new DataView(new ArrayBuffer(16), 3, 13));
     });
 
     it('Array', function () {
-        confirmWorks([1, 2, 5, 3]);
-        confirmWorks(['a', 'g', 2, true, null]);
+        confirmContainerWorks([1, 2, 5, 3]);
+        confirmContainerWorks(['a', 'g', 2, true, null]);
     });
 
     it('Plain Object', function () {
@@ -50,6 +95,16 @@ describe('Valid Input', function () {
             d: undefined,
             e: 'f'
         });
+    });
+
+    it('Map', function () {
+        confirmContainerWorks(new Map([['a', 1], [{}, 2], [{}, 5], [0, 3]]));
+        confirmContainerWorks(new Map());
+    });
+
+    it('Set', function () {
+        confirmContainerWorks(new Set(['a', {}, {}, 0]));
+        confirmContainerWorks(new Set());
     });
 
     it('Circular Reference', function () {
