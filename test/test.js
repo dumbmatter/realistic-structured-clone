@@ -67,8 +67,9 @@ describe('Valid Input', function () {
         assertSameEntries(new Int8Array(ab), new Int8Array(ab2));
 
         var shared = new ArrayBuffer(7);
-        var obj = {wrapper1: new Uint8Array(shared),
-                   wrapper2: new Uint16Array(shared, 2, 2)
+        var obj = {
+            wrapper1: new Uint8Array(shared),
+            wrapper2: new Uint16Array(shared, 2, 2)
         };
         obj.wrapper1[0] = 1;
         obj.wrapper2[1] = 0xffff;
