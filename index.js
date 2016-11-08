@@ -27,6 +27,10 @@ function structuredClone(input, memory) {
         return input;
     }
 
+    if (type === 'symbol') {
+        throw new DataCloneError('Value could not be cloned: ' + input.toString() + ' is a Symbol');
+    }
+
     var deepClone = 'none';
 
     if (input instanceof Boolean || input instanceof Number || input instanceof String || input instanceof Date) {
@@ -42,21 +46,29 @@ function structuredClone(input, memory) {
         } else {
             output = new input.constructor(outputBuffer, input.byteOffset, input.length);
         }
-        // Supposed to also handle Blob, FileList, ImageData, ImageBitmap, but fuck it
-    } else if (Array.isArray(input)) {
-        output = new Array(input.length);
-        deepClone = 'own';
-    } else if (isPlainObject(input)) {
-        output = {};
-        deepClone = 'own';
     } else if (input instanceof Map) {
         output = new Map();
         deepClone = 'map';
     } else if (input instanceof Set) {
         output = new Set();
         deepClone = 'set';
-    } else {
+    } else if (Array.isArray(input)) {
+        output = new Array(input.length);
+        deepClone = 'own';
+    } else if (typeof input === 'function') {
+        throw new DataCloneError('Object could not be cloned: ' + input.name + ' is a function');
+    } else if (!isPlainObject(input)) {
+        // This is way too restrictive. Should be able to clone any object that isn't
+        // a platform object with an internal slot other than [[Prototype]] or [[Extensible]].
+        // But need to reject all platform objects, except those whitelisted for cloning
+        // (ie, those with a [[Clone]] internal method), and this errs on the side of caution
+        // for now.
+
+        // Supposed to also handle Blob, FileList, ImageData, ImageBitmap, but fuck it
         throw new DataCloneError();
+    } else {
+        output = {};
+        deepClone = 'own';
     }
 
     memory.set(input, output);
