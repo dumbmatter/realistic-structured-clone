@@ -178,4 +178,13 @@ describe('Invalid Input', function () {
     it('WeakSet', function () {
         confirmFails(new WeakSet());
     });
+
+    it('throwing getter', function () {
+        var x = {
+            get bad() {throw new RangeError();}
+        };
+        assert.throws(function () {
+            structuredClone(x);
+        }, RangeError);
+    });
 });
