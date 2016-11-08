@@ -160,7 +160,7 @@ describe('Invalid Input', function () {
     var confirmFails = function (x) {
         assert.throws(function () {
             structuredClone(x);
-        });
+        }, /DataCloneError/);
     };
 
     it('Function', function () {
