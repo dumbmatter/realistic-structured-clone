@@ -154,6 +154,25 @@ describe('Valid Input', function () {
         assert.equal(obj2.ref1, 1);
         assert.equal(obj2, obj2.ref2);
     });
+
+/* disabled tests that don't pass yet
+    it('POD class', function () {
+        var MyClass = function () {
+            this.x = 'x';
+        }
+        confirmWorks(new MyClass());
+    });
+
+    it('class with method', function () {
+        var MyClass = function () {
+            this.x = 'y';
+        }
+        MyClass.prototype = {method1() {}};
+        var obj = new MyClass();
+        assert.equal(typeof obj.method1, 'function');
+        confirmWorks(obj);
+    });
+*/
 });
 
 describe('Invalid Input', function () {
