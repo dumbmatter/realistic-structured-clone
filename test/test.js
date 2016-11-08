@@ -147,4 +147,12 @@ describe('Invalid Input', function () {
     it('Error', function () {
         confirmFails(new Error());
     });
+
+    it('WeakMap', function () {
+        confirmFails(new WeakMap());
+    });
+
+    it('WeakSet', function () {
+        confirmFails(new WeakSet());
+    });
 });
