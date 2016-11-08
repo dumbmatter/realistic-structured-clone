@@ -12,7 +12,7 @@ function DataCloneError(message) {
 }
 util.inherits(DataCloneError, Error);
 
-// http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm
+// https://html.spec.whatwg.org/multipage/infrastructure.html#structuredclone
 function structuredClone(input, memory) {
     memory = memory !== undefined ? memory : new Map();
 
