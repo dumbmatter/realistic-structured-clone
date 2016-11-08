@@ -131,6 +131,29 @@ describe('Valid Input', function () {
             }
         });
     });
+
+    it('getter', function () {
+        var value;
+        var obj = {
+            get ref1() {return value;},
+            get ref2() {return value;}
+        };
+        value = obj;
+        assert.throws(function () {
+            obj.ref1 = 1;
+        });
+        assert.equal(obj, obj.ref1);
+        assert.equal(obj, obj.ref2);
+
+        var obj2 = structuredClone(obj);
+        assert.equal(obj2, obj2.ref1);
+        assert.equal(obj2, obj2.ref2);
+        assert.doesNotThrow(function () {
+            obj2.ref1 = 1;
+        });
+        assert.equal(obj2.ref1, 1);
+        assert.equal(obj2, obj2.ref2);
+    });
 });
 
 describe('Invalid Input', function () {
