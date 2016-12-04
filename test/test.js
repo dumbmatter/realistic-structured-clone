@@ -131,13 +131,55 @@ describe('Valid Input', function () {
             }
         });
     });
+
+    it('getter', function () {
+        var value;
+        var obj = {
+            get ref1() {return value;},
+            get ref2() {return value;}
+        };
+        value = obj;
+        assert.throws(function () {
+            obj.ref1 = 1;
+        });
+        assert.equal(obj, obj.ref1);
+        assert.equal(obj, obj.ref2);
+
+        var obj2 = structuredClone(obj);
+        assert.equal(obj2, obj2.ref1);
+        assert.equal(obj2, obj2.ref2);
+        assert.doesNotThrow(function () {
+            obj2.ref1 = 1;
+        });
+        assert.equal(obj2.ref1, 1);
+        assert.equal(obj2, obj2.ref2);
+    });
+
+/* disabled tests that don't pass yet
+    it('POD class', function () {
+        var MyClass = function () {
+            this.x = 'x';
+        }
+        confirmWorks(new MyClass());
+    });
+
+    it('class with method', function () {
+        var MyClass = function () {
+            this.x = 'y';
+        }
+        MyClass.prototype = {method1() {}};
+        var obj = new MyClass();
+        assert.equal(typeof obj.method1, 'function');
+        confirmWorks(obj);
+    });
+*/
 });
 
 describe('Invalid Input', function () {
     var confirmFails = function (x) {
         assert.throws(function () {
             structuredClone(x);
-        });
+        }, /DataCloneError/);
     };
 
     it('Function', function () {
@@ -146,5 +188,22 @@ describe('Invalid Input', function () {
 
     it('Error', function () {
         confirmFails(new Error());
+    });
+
+    it('WeakMap', function () {
+        confirmFails(new WeakMap());
+    });
+
+    it('WeakSet', function () {
+        confirmFails(new WeakSet());
+    });
+
+    it('throwing getter', function () {
+        var x = {
+            get bad() {throw new RangeError();}
+        };
+        assert.throws(function () {
+            structuredClone(x);
+        }, RangeError);
     });
 });
