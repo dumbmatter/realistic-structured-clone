@@ -1,6 +1,6 @@
 {
     "env": {
-        "browser": false,
+        "browser": true,
         "node": true,
         "amd": false,
         "mocha": true,
