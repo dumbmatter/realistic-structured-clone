@@ -52,6 +52,8 @@ function structuredClone(input, memory) {
     } else if (input instanceof Set) {
         output = new Set();
         deepClone = 'set';
+    } else if (typeof Blob !== 'undefined' && input instanceof Blob) {
+        output = input.slice(0, input.size, input.type);
     } else if (Array.isArray(input)) {
         output = new Array(input.length);
         deepClone = 'own';
@@ -64,7 +66,7 @@ function structuredClone(input, memory) {
         // (ie, those with a [[Clone]] internal method), and this errs on the side of caution
         // for now.
 
-        // Supposed to also handle Blob, FileList, ImageData, ImageBitmap, but fuck it
+        // Supposed to also handle FileList, ImageData, ImageBitmap, but fuck it
         throw new DataCloneError();
     } else {
         output = {};
