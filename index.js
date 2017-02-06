@@ -39,7 +39,7 @@ function structuredClone(input, memory) {
         output = new RegExp(input.source, input.flags);
     } else if (input instanceof ArrayBuffer) {
         output = input.slice();
-    } else if (ArrayBuffer.isView(input)) {
+    } else if (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView && ArrayBuffer.isView(input)) {
         var outputBuffer = structuredClone(input.buffer, memory);
         if (input instanceof DataView) {
             output = new DataView(outputBuffer, input.byteOffset, input.byteLength);
