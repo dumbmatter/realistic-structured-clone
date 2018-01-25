@@ -1,7 +1,7 @@
 'use strict';
 
 require('core-js/fn/object/values');
-var DOMException = require("domexception");
+var DOMException = require('domexception');
 var Typeson = require('typeson');
 var structuredCloningThrowing = require('typeson-registry/dist/presets/structured-cloning-throwing');
 
@@ -16,4 +16,8 @@ if (!globalVar.DOMException) {
 
 var TSON = new Typeson().register(structuredCloningThrowing);
 
-module.exports = TSON.stringify;
+function realisticStructuredClone(obj) {
+    return TSON.parse(TSON.stringify(obj));
+}
+
+module.exports = realisticStructuredClone;
