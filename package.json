@@ -17,17 +17,18 @@
   ],
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js test",
-    "mocha": "mocha --recursive",
-    "test": "npm run lint && npm run mocha"
+    "test": "mocha --recursive"
   },
   "author": "Jeremy Scheff <jdscheff@gmail.com> (http://dumbmatter.com/)",
   "license": "Apache-2.0",
   "dependencies": {
-    "lodash.isplainobject": "^3.0.2"
+    "core-js": "^2.5.3",
+    "domexception": "^1.0.1",
+    "lodash.isplainobject": "^3.0.2",
+    "typeson": "^5.7.1",
+    "typeson-registry": "^1.0.0-alpha.18"
   },
   "devDependencies": {
-    "eslint": "^3.9.1",
     "mocha": "^2.2.4"
   }
 }
