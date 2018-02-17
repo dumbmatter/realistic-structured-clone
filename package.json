@@ -25,8 +25,8 @@
     "core-js": "^2.5.3",
     "domexception": "^1.0.1",
     "lodash.isplainobject": "^3.0.2",
-    "typeson": "^5.7.1",
-    "typeson-registry": "^1.0.0-alpha.18"
+    "typeson": "^5.8.1",
+    "typeson-registry": "^1.0.0-alpha.19"
   },
   "devDependencies": {
     "mocha": "^2.2.4"
