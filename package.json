@@ -24,11 +24,10 @@
   "dependencies": {
     "core-js": "^2.5.3",
     "domexception": "^1.0.1",
-    "lodash.isplainobject": "^3.0.2",
-    "typeson": "^5.8.1",
-    "typeson-registry": "^1.0.0-alpha.19"
+    "typeson": "^5.8.2",
+    "typeson-registry": "^1.0.0-alpha.20"
   },
   "devDependencies": {
-    "mocha": "^2.2.4"
+    "mocha": "^5.0.1"
   }
 }
