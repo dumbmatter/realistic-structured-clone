@@ -43,13 +43,11 @@ If you're working in the browser, you can do [something like this](https://twitt
         console.log("x === cloned %s", x === cloned);
     });
 
-However, that won't help you in Node.js/io.js. It's also asynchronous, which could be a problem. `realistic-structured-clone` is synchronous and works everywhere.
+However, that won't help you in Node.js. It's also asynchronous, which could be a problem. `realistic-structured-clone` is synchronous and works everywhere.
 
 ## Current State
 
-[The spec](http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#internal-structured-cloning-algorithm) says it's supposed to handle FileList, ImageData, and ImageBitmap objects. But none of that is implemented yet, so passing an object containing any of those types of objects will result in an erroneous `DataCloneError`.
-
-All other data types should work like described in the spec. Check the tests if you don't believe me, and please create an issue if you find a problem.
+As of version 2.0, it should be pretty damn close to the spec! However it is now just a light wrapper around the [Typeson](https://github.com/dfahlander/typeson) structured-cloning-throwing preset.
 
 ## License
 
