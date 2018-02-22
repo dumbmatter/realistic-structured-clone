@@ -1,5 +1,3 @@
-'use strict';
-
 require('core-js/fn/object/values');
 var DOMException = require('domexception');
 var Typeson = require('typeson');
@@ -10,6 +8,7 @@ var globalVar = typeof window !== 'undefined' ? window :
    typeof WorkerGlobalScope !== 'undefined' ? self :
    typeof global !== 'undefined' ? global :
    Function('return this;')();
+
 if (!globalVar.DOMException) {
     globalVar.DOMException = DOMException;
 }

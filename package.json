@@ -15,12 +15,17 @@
     "clone",
     "structured-clone"
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "build": "rm -rf dist && mkdir dist && browserify index.js --node -s realisticStructuredClone -t [ babelify --global --presets [ es2015 ] ] | derequire > dist/index.js",
+    "prepublish": "npm run build",
+    "test": "npm run build && mocha --recursive"
   },
   "author": "Jeremy Scheff <jdscheff@gmail.com> (http://dumbmatter.com/)",
   "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "core-js": "^2.5.3",
     "domexception": "^1.0.1",
@@ -28,6 +33,11 @@
     "typeson-registry": "^1.0.0-alpha.20"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browserify": "^16.1.0",
+    "derequire": "^2.0.6",
     "mocha": "^5.0.1"
   }
 }
