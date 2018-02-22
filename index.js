@@ -1,3 +1,4 @@
+require('core-js/fn/array/includes');
 require('core-js/fn/object/values');
 var DOMException = require('domexception');
 var Typeson = require('typeson');

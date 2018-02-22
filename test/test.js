@@ -58,7 +58,7 @@ describe('Valid Input', function () {
         confirmWorks(new RegExp('ab+c', 'i'));
         confirmWorks(/ab+c/i);
         confirmWorks(new RegExp('de+f', 'gm'));
-        confirmWorks(new RegExp('gh.*i', 'yu'));
+        // confirmWorks(new RegExp('gh.*i', 'yu')); // Not supported on Node 4
     });
 
     it('ArrayBuffer', function () {
