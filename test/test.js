@@ -155,7 +155,6 @@ describe('Valid Input', function () {
         assert.equal(obj2, obj2.ref2);
     });
 
-/* disabled tests that don't pass yet
     it('POD class', function () {
         var MyClass = function () {
             this.x = 'x';
@@ -172,7 +171,6 @@ describe('Valid Input', function () {
         assert.equal(typeof obj.method1, 'function');
         confirmWorks(obj);
     });
-*/
 });
 
 describe('Invalid Input', function () {
