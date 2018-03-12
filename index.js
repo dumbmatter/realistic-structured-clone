@@ -17,7 +17,7 @@ if (!globalVar.DOMException) {
 var TSON = new Typeson().register(structuredCloningThrowing);
 
 function realisticStructuredClone(obj) {
-    return TSON.parse(TSON.stringify(obj));
+    return TSON.revive(TSON.encapsulate(obj));
 }
 
 module.exports = realisticStructuredClone;
