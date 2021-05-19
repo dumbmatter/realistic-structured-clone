@@ -29,7 +29,7 @@
   "dependencies": {
     "core-js": "^2.5.3",
     "domexception": "^1.0.1",
-    "typeson": "^5.8.2",
+    "typeson": "^6.1.0",
     "typeson-registry": "^1.0.0-alpha.20"
   },
   "devDependencies": {
@@ -38,6 +38,6 @@
     "babelify": "^8.0.0",
     "browserify": "^16.1.0",
     "derequire": "^2.0.6",
-    "mocha": "^5.0.1"
+    "mocha": "^9.0.3"
   }
 }
