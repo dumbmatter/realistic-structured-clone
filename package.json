@@ -1,6 +1,6 @@
 {
   "name": "realistic-structured-clone",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A pure JS implementation of the structured clone algorithm (or at least something pretty close to that)",
   "homepage": "https://github.com/dumbmatter/realistic-structured-clone",
   "repository": {
