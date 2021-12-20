@@ -1,5 +1,7 @@
 # Realistic Structured Clone [![Build Status](https://travis-ci.org/dumbmatter/realistic-structured-clone.svg?branch=master)](https://travis-ci.org/dumbmatter/realistic-structured-clone)
 
+**You might not need this anymore!** A native `structuredClone` function is available in many recent environments, such as Node v17 and Firefox v94. [Check if your target environment has `structuredClone` built in.](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) If it does, use that.
+
 This is a pure JS implementation of the [structured clone algorithm](http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm) (or at least something pretty close to that).
 
 Why do you want this? Well, you probably don't. If your goal is to just clone a JS object, you're better off with [lodash's _.cloneDeep](https://lodash.com/docs#cloneDeep) or [the popular `clone` module on npm](https://www.npmjs.com/package/clone).
