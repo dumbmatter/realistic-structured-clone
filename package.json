@@ -27,7 +27,7 @@
     "dist"
   ],
   "dependencies": {
-    "core-js": "^2.5.3",
+    "core-js": "^3.4",
     "domexception": "^1.0.1",
     "typeson": "^6.1.0",
     "typeson-registry": "^1.0.0-alpha.20"
