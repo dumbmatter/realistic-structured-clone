@@ -1,4 +1,4 @@
-# Realistic Structured Clone [![Build Status](https://travis-ci.org/dumbmatter/realistic-structured-clone.svg?branch=master)](https://travis-ci.org/dumbmatter/realistic-structured-clone)
+# Realistic Structured Clone ![Build Status](https://github.com/dumbmatter/realistic-structured-clone/actions/workflows/test.yml/badge.svg)
 
 **You might not need this anymore!** A native `structuredClone` function is available in many recent environments, such as Node v17 and Firefox v94. [Check if your target environment has `structuredClone` built in.](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) If it does, use that.
 

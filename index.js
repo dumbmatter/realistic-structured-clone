@@ -1,5 +1,3 @@
-require('core-js/actual/array/includes');
-require('core-js/actual/object/values');
 var DOMException = require('domexception');
 var Typeson = require('typeson');
 var structuredCloningThrowing = require('typeson-registry/dist/presets/structured-cloning-throwing');
